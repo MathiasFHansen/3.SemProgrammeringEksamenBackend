@@ -3,6 +3,7 @@
     
     <!-- DO NOT RENAME THE PERSISTENCE UNIT -->
     <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
+        <class>entities.Race</class>
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
@@ -22,8 +23,8 @@
             
             <!-- In PRODUCTION the values below, will be overriden by utils.EMF_Creator -->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://46.101.123.187:3306/exam"/>
-            <property name="javax.persistence.jdbc.user" value="dev"/>
-            <property name="javax.persistence.jdbc.password" value="ax2"/>
+            <property name="javax.persistence.jdbc.user" value="mathias"/>
+            <property name="javax.persistence.jdbc.password" value="XT5XnmHUjXY4mAbz"/>
             
         </properties>
     </persistence-unit>

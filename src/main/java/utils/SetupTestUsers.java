@@ -1,12 +1,14 @@
 package utils;
 
 
+import entities.Race;
 import entities.Role;
 import entities.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.Date;
 
 public class SetupTestUsers {
 
@@ -24,6 +26,8 @@ public class SetupTestUsers {
     User user = new User("user", "testHest");
     User admin = new User("admin", "testHest");
     User both = new User("user_admin", "testHest");
+    Race race1 = new Race("Tokyo International", "13-01-2022", "11:00", "Tokyo");
+    Race race2 = new Race("Berlin International", "13-02-2022", "12:00", "Berlin");
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
@@ -39,6 +43,8 @@ public class SetupTestUsers {
     em.persist(adminRole);
     em.persist(user);
     em.persist(admin);
+    em.persist(race1);
+    em.persist(race2);
     em.persist(both);
     em.getTransaction().commit();
     System.out.println("PW: " + user.getUserPass());
