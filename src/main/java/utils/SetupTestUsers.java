@@ -1,6 +1,7 @@
 package utils;
 
 
+import entities.Car;
 import entities.Race;
 import entities.Role;
 import entities.User;
@@ -28,6 +29,11 @@ public class SetupTestUsers {
     User both = new User("user_admin", "testHest");
     Race race1 = new Race("Tokyo International", "13-01-2022", "11:00", "Tokyo");
     Race race2 = new Race("Berlin International", "13-02-2022", "12:00", "Berlin");
+    Car car = new Car("Celica","Toyota","Sport",1970);
+    Car car2 = new Car("Supra","Toyota","Sport",1978);
+    Car car3 = new Car("Skyline GT-R", "Nissan", "Sport", 1969);
+    Car car4 = new Car("Lancer Evolution", "Mitsubishi", "Sport", 1992);
+
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
@@ -39,6 +45,12 @@ public class SetupTestUsers {
     admin.addRole(adminRole);
     both.addRole(userRole);
     both.addRole(adminRole);
+
+    race1.addCar(car);
+    race1.addCar(car2);
+    race2.addCar(car3);
+    race2.addCar(car4);
+
     em.persist(userRole);
     em.persist(adminRole);
     em.persist(user);

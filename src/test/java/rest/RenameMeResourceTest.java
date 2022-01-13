@@ -14,6 +14,8 @@ import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -104,13 +106,23 @@ public class RenameMeResourceTest {
     }
 
     @Test
-    public void AllRacesTest() throws Exception {
+    public void allRacesTest() throws Exception {
         given()
                 .contentType("application/json")
                 .get("http://localhost:8080/3__semester_eksamen/api/RaceCarInfo/Races").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size", equalTo(2));
+                .body("size", notNullValue());
+    }
+
+    @Test
+    public void carsFromRacesTest(){
+        given()
+                .contentType("application/json")
+                .get("http://localhost:8080/3__semester_eksamen/api/RaceCarInfo/carsFromRace/1").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("all.size", notNullValue());
     }
 
 }

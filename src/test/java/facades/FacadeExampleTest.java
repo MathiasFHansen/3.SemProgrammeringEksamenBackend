@@ -1,5 +1,7 @@
 package facades;
 
+import dtos.RaceDTO;
+import entities.Race;
 import entities.Role;
 import entities.User;
 import utils.EMF_Creator;
@@ -19,6 +21,7 @@ public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
     private static UserFacade facade;
+    private static RaceCarFacade raceCarFacade;
 
     public FacadeExampleTest() {
     }
@@ -27,6 +30,7 @@ public class FacadeExampleTest {
     public static void setUpClass() {
        emf = EMF_Creator.createEntityManagerFactoryForTest();
        facade = UserFacade.getUserFacade(emf);
+       raceCarFacade = RaceCarFacade.getRaceCarFacade(emf);
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -70,6 +74,16 @@ public class FacadeExampleTest {
         Role userRole = new Role("user");
         expected.addRole(userRole);
         assertEquals(expected.getUserName(), actual.getUserName());
+    }
+
+    @Test
+    public void createRaceTest(){
+        raceCarFacade = RaceCarFacade.getRaceCarFacade(emf);
+        Race raceTest = new Race("Los Angeles International","13-01-2022","22:01","Los Angeles");
+        RaceDTO actual = raceCarFacade.createRace(new RaceDTO(raceTest));
+        RaceDTO expected = new RaceDTO(raceTest);
+
+        assertEquals(expected.getName(),actual.getName());
     }
 
 }

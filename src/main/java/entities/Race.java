@@ -4,7 +4,9 @@ import dtos.RaceDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "race")
 @Entity
@@ -18,6 +20,8 @@ public class Race implements Serializable {
     private String time;
     private String location;
 
+    @ManyToMany(mappedBy = "raceList", cascade = CascadeType.ALL)
+    private List<Car> carList = new ArrayList<>();
 
     public Race() {
     }
@@ -68,13 +72,24 @@ public class Race implements Serializable {
         location = location;
     }
 
-
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Car> getCarList() {
+        return carList;
+    }
+
+    public void setCarList(List<Car> carList) {
+        this.carList = carList;
+    }
+
+    public void addCar(Car car){
+        carList.add(car);
+        car.getRaceList().add(this);
     }
 }

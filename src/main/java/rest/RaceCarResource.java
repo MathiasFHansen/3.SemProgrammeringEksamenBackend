@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.CarsDTO;
 import dtos.RaceDTO;
 import entities.Race;
 import facades.RaceCarFacade;
@@ -9,10 +10,7 @@ import facades.RaceCarFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class RaceCarResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("Races")
-    public List<Race> allRaces() {
+    public List<RaceDTO> allRaces() {
         {
             return raceCarFacade.getAllRaces();
         }
@@ -48,5 +46,12 @@ public class RaceCarResource {
         return Response.ok(gson.toJson(newRace), MediaType.APPLICATION_JSON).build();
     }
 
+    @Path("carsFromRace/{raceID}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllCarsFromRace(@PathParam("raceID") int raceID){
+        CarsDTO cDTO = raceCarFacade.getCarFromRaceID(raceID);
+        return Response.ok(gson.toJson(cDTO), MediaType.APPLICATION_JSON).build();
+    }
 
 }

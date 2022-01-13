@@ -1,6 +1,9 @@
 package facades;
 
+import dtos.CarDTO;
+import dtos.CarsDTO;
 import dtos.RaceDTO;
+import entities.Car;
 import entities.Race;
 
 import javax.persistence.EntityManager;
@@ -29,15 +32,15 @@ public class RaceCarFacade {
         return emf.createEntityManager();
     }
 
-    public List<Race> getAllRaces(){
-        List<Race> raceList = new ArrayList<>();
+    public List<RaceDTO> getAllRaces(){
+        List<RaceDTO> raceList = new ArrayList<>();
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Race> query = em.createQuery("select r from Race r", entities.Race.class);
             List<Race> races = query.getResultList();
 
             for (Race r: races) {
-                raceList.add(r);
+                raceList.add(new RaceDTO(r));
             }
             return raceList;
         } finally {
@@ -56,6 +59,21 @@ public class RaceCarFacade {
             return new RaceDTO(race);
         } finally {
             em.close();
+        }
+    }
+
+    public CarsDTO getCarFromRaceID(long raceID){
+        EntityManager em = emf.createEntityManager();
+
+        TypedQuery<Car> query = em.createQuery("SELECT c FROM Car c JOIN c.raceList s WHERE s.id = :raceID", Car.class);
+        query.setParameter("raceID", raceID);
+        List<Car> cars = query.getResultList();
+
+        if(cars != null){
+            CarsDTO carsDTO = new CarsDTO(cars);
+            return carsDTO;
+        } else {
+            return new CarsDTO(cars);
         }
 
     }
