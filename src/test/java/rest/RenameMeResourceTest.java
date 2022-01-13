@@ -109,7 +109,7 @@ public class RenameMeResourceTest {
     public void allRacesTest() throws Exception {
         given()
                 .contentType("application/json")
-                .get("http://localhost:8080/3__semester_eksamen/api/RaceCarInfo/Races").then()
+                .get("https://www.mathias-filten-borg.dk/3.semesterEksamen/api/RaceCarInfo/Races").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("size", notNullValue());
@@ -119,7 +119,7 @@ public class RenameMeResourceTest {
     public void carsFromRacesTest(){
         given()
                 .contentType("application/json")
-                .get("http://localhost:8080/3__semester_eksamen/api/RaceCarInfo/carsFromRace/1").then()
+                .get("https://www.mathias-filten-borg.dk/3.semesterEksamen/api/RaceCarInfo/carsFromRace/1").then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("all.size", notNullValue());
