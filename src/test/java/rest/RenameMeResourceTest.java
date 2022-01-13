@@ -102,4 +102,15 @@ public class RenameMeResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
     }
+
+    @Test
+    public void AllRacesTest() throws Exception {
+        given()
+                .contentType("application/json")
+                .get("http://localhost:8080/3__semester_eksamen/api/RaceCarInfo/Races").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("size", equalTo(2));
+    }
+
 }

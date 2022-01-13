@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.RaceDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,6 +20,13 @@ public class Race implements Serializable {
 
 
     public Race() {
+    }
+
+    public Race(RaceDTO raceDTO) {
+        this.name = raceDTO.getName();
+        this.date = raceDTO.getDate();
+        this.time = raceDTO.getTime();
+        this.location = raceDTO.getLocation();
     }
 
     public Race(String name, String date, String time, String location) {

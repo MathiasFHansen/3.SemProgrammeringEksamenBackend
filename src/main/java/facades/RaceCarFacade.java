@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.RaceDTO;
 import entities.Race;
 
 import javax.persistence.EntityManager;
@@ -32,7 +33,7 @@ public class RaceCarFacade {
         List<Race> raceList = new ArrayList<>();
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Race> query = em.createQuery("select r from race r", entities.Race.class);
+            TypedQuery<Race> query = em.createQuery("select r from Race r", entities.Race.class);
             List<Race> races = query.getResultList();
 
             for (Race r: races) {
@@ -42,5 +43,20 @@ public class RaceCarFacade {
         } finally {
             em.close();
         }
+    }
+
+    public RaceDTO createRace(RaceDTO raceDTO) {
+        EntityManager em = emf.createEntityManager();
+        Race race = new Race(raceDTO);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(race);
+            em.getTransaction().commit();
+            return new RaceDTO(race);
+        } finally {
+            em.close();
+        }
+
     }
 }
