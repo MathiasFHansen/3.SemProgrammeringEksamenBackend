@@ -73,11 +73,7 @@ public class RaceCarResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("deleteCar/{id}")
     public void deleteCar (@PathParam("id")long id){
-
-
-
         raceCarFacade.deleteCar(id);
-
     }
 
 

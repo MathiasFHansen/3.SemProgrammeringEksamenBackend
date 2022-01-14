@@ -100,13 +100,10 @@ public class RaceCarFacade {
 
     public void deleteCar(Long carID) {
         EntityManager em = emf.createEntityManager();
-        Car car;
+
 
         try {
             em.getTransaction().begin();
-//            car = em.find(Car.class, id);
-//
-//            em.remove(car);
 
             Query query = em.createQuery("DELETE FROM Car c WHERE c.id = :carID", Car.class);
             query.setParameter("carID", carID);
