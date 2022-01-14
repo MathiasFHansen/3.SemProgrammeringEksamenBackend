@@ -6,6 +6,7 @@ import dtos.CarDTO;
 import dtos.CarsDTO;
 import dtos.RaceCarDTO;
 import dtos.RaceDTO;
+import entities.Car;
 import entities.Race;
 import facades.RaceCarFacade;
 
@@ -67,5 +68,17 @@ public class RaceCarResource {
         raceCarFacade.connectRaceAndCar(raceDTO, carDTO);
         //return Response.ok(gson.toJson(raceCarDTO), MediaType.APPLICATION_JSON).build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("deleteCar/{id}")
+    public void deleteCar (@PathParam("id")long id){
+
+
+
+        raceCarFacade.deleteCar(id);
+
+    }
+
 
 }

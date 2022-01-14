@@ -9,6 +9,7 @@ import entities.Race;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,27 @@ public class RaceCarFacade {
             em.close();
         }
 
+    }
+
+
+    public void deleteCar(Long carID) {
+        EntityManager em = emf.createEntityManager();
+        Car car;
+
+        try {
+            em.getTransaction().begin();
+//            car = em.find(Car.class, id);
+//
+//            em.remove(car);
+
+            Query query = em.createQuery("DELETE FROM Car c WHERE c.id = :carID", Car.class);
+            query.setParameter("carID", carID);
+            query.executeUpdate();
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
     }
 
 }
