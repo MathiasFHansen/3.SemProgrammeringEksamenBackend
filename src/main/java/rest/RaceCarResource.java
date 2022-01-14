@@ -59,11 +59,13 @@ public class RaceCarResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("connectRaceCar")
-    public Response connectRaceCar(String race, String car) {
-        RaceDTO raceDTO = gson.fromJson(race, RaceDTO.class);
-        CarDTO carDTO = gson.fromJson(car, CarDTO.class);
-        RaceCarDTO raceCarDTO = raceCarFacade.connectRaceAndCar(raceDTO, carDTO);
-        return Response.ok(gson.toJson(raceCarDTO), MediaType.APPLICATION_JSON).build();
+    public void connectRaceCar(String myStrings) {
+        String[] parts = myStrings.split("},",2);
+
+        RaceDTO raceDTO = gson.fromJson(parts[0], RaceDTO.class);
+        CarDTO carDTO = gson.fromJson(parts[1], CarDTO.class);
+        raceCarFacade.connectRaceAndCar(raceDTO, carDTO);
+        //return Response.ok(gson.toJson(raceCarDTO), MediaType.APPLICATION_JSON).build();
     }
 
 }

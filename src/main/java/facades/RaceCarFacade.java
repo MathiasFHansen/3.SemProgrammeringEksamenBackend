@@ -79,7 +79,7 @@ public class RaceCarFacade {
 
     }
 
-    public RaceCarDTO connectRaceAndCar (RaceDTO raceDTO, CarDTO carDTO){
+    public void connectRaceAndCar (RaceDTO raceDTO, CarDTO carDTO){
         EntityManager em = emf.createEntityManager();
 
         Race race = new Race(raceDTO);
@@ -90,7 +90,6 @@ public class RaceCarFacade {
             race.addCar(car);
             em.persist(race);
             em.getTransaction().commit();
-            return new RaceCarDTO(race,car);
         } finally {
             em.close();
         }
