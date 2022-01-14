@@ -2,6 +2,7 @@ package facades;
 
 import dtos.CarDTO;
 import dtos.CarsDTO;
+import dtos.RaceCarDTO;
 import dtos.RaceDTO;
 import entities.Car;
 import entities.Race;
@@ -78,5 +79,22 @@ public class RaceCarFacade {
 
     }
 
+    public RaceCarDTO connectRaceAndCar (RaceDTO raceDTO, CarDTO carDTO){
+        EntityManager em = emf.createEntityManager();
+
+        Race race = new Race(raceDTO);
+        Car car = new Car(carDTO);
+
+        try {
+            em.getTransaction().begin();
+            race.addCar(car);
+            em.persist(race);
+            em.getTransaction().commit();
+            return new RaceCarDTO(race,car);
+        } finally {
+            em.close();
+        }
+
+    }
 
 }

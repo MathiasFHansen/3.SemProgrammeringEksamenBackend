@@ -2,7 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.CarDTO;
 import dtos.CarsDTO;
+import dtos.RaceCarDTO;
 import dtos.RaceDTO;
 import entities.Race;
 import facades.RaceCarFacade;
@@ -52,6 +54,16 @@ public class RaceCarResource {
     public Response getAllCarsFromRace(@PathParam("raceID") int raceID){
         CarsDTO cDTO = raceCarFacade.getCarFromRaceID(raceID);
         return Response.ok(gson.toJson(cDTO), MediaType.APPLICATION_JSON).build();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("connectRaceCar")
+    public Response connectRaceCar(String race, String car) {
+        RaceDTO raceDTO = gson.fromJson(race, RaceDTO.class);
+        CarDTO carDTO = gson.fromJson(car, CarDTO.class);
+        RaceCarDTO raceCarDTO = raceCarFacade.connectRaceAndCar(raceDTO, carDTO);
+        return Response.ok(gson.toJson(raceCarDTO), MediaType.APPLICATION_JSON).build();
     }
 
 }
